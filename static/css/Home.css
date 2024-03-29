@@ -1,0 +1,55 @@
+.platforme {
+    
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+.platforme a {
+    text-decoration: none;
+    color: #fff;
+    background-color:rgb(35 25 85);
+    padding: 8px;
+    border-radius: 8px;
+    display: block;
+    margin: 10px;
+    width: 80%; 
+    transition: background-color 0.3s ease;
+}
+
+.platforme a:hover {
+    background-color:  #c48e28;
+}
+
+.plat{
+    height: 40px; 
+    margin: 10px;
+    text-align: center;
+}
+
+
+.title {
+    text-align: center; /* Centre le texte horizontalement */
+    margin: 10px 0; /* Ajoute une marge pour l'espace autour du texte */
+
+}
+
+h1 {
+    padding-top: 190px;
+    padding-bottom: 30px;
+    color: #0f253e; /* Couleur du texte */
+    font-size: 2em; /* Taille de la police */
+    font-weight: bold; /* Gras */
+    /* Ajoutez d'autres propriétés CSS selon vos préférences */
+}
+
+
+a{
+    text-decoration: none;
+    color: rgb(145, 137, 137);
+    text-align: start;
+}
+
+

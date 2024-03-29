@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المعلومات</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">لوحة المعلومات</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="alert alert-success mt-3">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2 class="mt-5">تحميل الصورة</h2>
+        <form action="{{ url_for('dashboard') }}" method="post" enctype="multipart/form-data" class="mt-3">
+            <div class="form-group">
+                <label for="file">الصورة</label>
+                <input type="file" name="file" accept="image/*" class="form-control-file">
+            </div>
+            <div class="form-group">
+                <label for="url">رابط</label>
+                <input type="text" name="url" placeholder="رابط" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="platform">المنصة</label>
+                <select name="platform" class="form-control">
+                    <option value="Home">الصفحة الرئيسية</option>
+                    <option value="Instagram">إنستغرام</option>
+                    <option value="Facebook">فيس بوك</option>
+                    <option value="Twitter">تويتر</option>
+                    <option value="TikTok">تيك توك</option>
+                    <option value="Reddit">رديت</option>
+                    <option value="SoundCloud">ساوند كلاود</option>
+                    <option value="Pinterest">بينتيريست</option>
+                    <option value="LinkedIn">لينكدإن</option>
+                    <option value="Snapchat">سناب شات</option>
+                    <option value="Spotify">سبوتيفاي</option>
+                    <option value="YouTube">يوتيوب</option>
+                    <option value="Snapchat">سناب شات</option>
+                    <!-- أضف خيارات أخرى لكل منصة -->
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">تحميل</button>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">تسجيل الخروج</a>
+        </form>
+
+        <h2 class="mt-5">الصور المحملة</h2>
+        {% if files_with_urls %}
+            <ul class="list-group mt-3">
+                {% for file in files_with_urls %}
+                    <li class="list-group-item">
+                        <img src="{{ url_for('display_image', filename=file.filename) }}" alt="{{ file.filename }}" class="mr-3">
+                        {% if file.url %}
+                            <a href="{{ file.url }}" target="_blank" class="badge badge-primary">رابط</a>
+                        {% else %}
+                            لا يوجد رابط
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="mt-3">لم يتم تحميل أي صور بعد.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

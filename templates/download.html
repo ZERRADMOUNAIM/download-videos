@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}Download{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/download.css') }}">
+<link href="https://cdn.fchat.vn/assets/embed/css/fchat-webchat-icon-font.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
+<div class="download" style="padding-top: 170px; padding-bottom: 100px">
+
+    
+    {% if platform == 'twitter' or platform == 'Twitter' %}
+    <!-- reste -->
+    <div class="video-header">
+        <img  src="{{ data['data']['media'][0]['media_url_https'] }}" alt="Thumbnail">
+        <p>{{ data['data']['legacy']['full_text'] }}</p>
+    </div>
+   
+    <!-- Add logic to display video and audio options -->
+    <div class="button-down">
+        <form method="post" action="{{ url_for('download_video') }}">
+            <input type="hidden" name="video_url" value="{{ data['data']['media'][0]['video_info']['variants'][3]['url'] }}">
+            <input type="hidden" name="title" value="{{  data['data']['legacy']['full_text'] }}">
+            <button class="button downloadb" type="submit">Download</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="button back" style="text-align: center;">Other Downloads</a>
+    </div>
+    {% endif %}
+    
+    
+    {% if platform == 'youtube' %}
+    <!-- reste -->
+    <div class="video-header">
+        <img  src="{{ data['videoDetails']['thumbnail'][2]['url'] }}" alt="Thumbnail">
+        <p>{{ data['videoDetails']['title'] }}</p>
+    </div>
+
+    <!-- Add logic to display video and audio options -->
+    <div class="button-down">
+        {% for video in data['formats']['videowithaudio'] %}
+        <form method="post" action="{{ url_for('download_video') }}">
+            <input type="hidden" name="video_url" value="{{ video['url'] }}">
+            <input type="hidden" name="title" value="{{ data['videoDetails']['title'] }}">
+            <button class="button downloadb" type="submit">{{ video['qualityLabel'] }}</button>
+        </form>
+        {% endfor %}
+
+        <form method="post" action="{{ url_for('download_audio') }}">
+            <input type="hidden" name="audio_url" value="{{ data['formats']['audioonly'][0]['url'] }}">
+            <input type="hidden" name="title" value="{{ data['videoDetails']['title']  }}">
+
+            <button class="button downloadb" type="submit">MP3</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="button back" style="text-align: center;">تنزيلات الأخرى</a>
+
+    </div>
+    {% elif platform == 'Facebook' %}
+    <!-- reste -->
+    <div class="video-header">
+        <img  src="{{ data['picture'] }}" alt="Thumbnail">
+        <p>{{ data['title'] }}</p>
+    </div>
+
+    <!-- Add logic to display video and audio options -->
+    <div class="button-down">
+        {% for video in data['links'] %}
+        <form method="post" action="{{ url_for('download_video') }}">
+            <input type="hidden" name="video_url" value="{{ video['link'] }}">
+            <input type="hidden" name="title" value="{{ data['title'] }}">
+            <button class="button downloadb" type="submit">{{ video['quality'] }}</button>
+        </form>
+        {% endfor %}
+
+        <a href="{{ url_for('index') }}" class="button back" style="text-align: center;">تنزيلات الأخرى</a>
+    </div>
+
+    {% elif platform == 'threads' %}
+
+    <!-- reste -->
+    <div class="video-header">
+        <img  src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Thumbnail">
+        <p>{{ data['caption'] }}</p>
+    </div>
+
+    <!-- Add logic to display video and audio options -->
+    <div class="button-down">
+        
+        <form method="post" action="{{ url_for('download_video') }}">
+            <input type="hidden" name="video_url" value="{{ data['link'] }}">
+            <input type="hidden" name="title" value="{{ data['caption'] }}">
+            <button class="button downloadb" type="submit">HD</button>
+        </form>
+        
+        <a href="{{ url_for('index') }}" class="button back" style="text-align: center;">تنزيلات الأخرى</a>
+    </div>
+
+
+    {% elif platform == 'soundcloud' %}
+    <!-- reste -->
+    <div class="video-header">
+        <img  src="{{ mou['thumbnail'] }}" alt="Thumbnail">
+        <p>{{ mou['title'] }}</p>
+    </div>
+
+    <!-- Add logic to display video and audio options -->
+    <div class="button-down">
+        {% if mou['medias'][0]['extension'] == 'mp4' %}
+        <form method="post" action="{{ url_for('download_video') }}">
+            <input type="hidden" name="video_url" value="{{ mou['medias'][0]['url'] }}">
+            <button class="button downloadb" type="submit">{{ mou['medias'][0]['quality']  }}</button>
+        </form>
+        {% else %}
+        <form method="post" action="{{ url_for('download_audio') }}">
+            <input type="hidden" name="title" value="{{ mou['title'] }}">
+            <input type="hidden" name="audio_url" value="{{ mou['medias'][0]['url'] }}">
+            <button class="button downloadb" type="submit">MP3</button>
+        </form>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="button back" style="text-align: center;">تنزيلات الأخرى</a>
+    </div>
+    {% endif %}
+</div>
+<div class="container">
+    <pre>
+
+    </pre>
+</div>
+
+{% endblock %}
+
+{% block additional_css %}
+    <!-- Inclure le fichier CSS externe pour cette page -->
+{% endblock %}
