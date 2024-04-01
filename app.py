@@ -140,6 +140,24 @@ def upload_image():
 
 
 
+@app.route('/delete_image', methods=['POST'])
+@login_required
+def delete_image():
+    platform = request.form.get('platform')
+    if platform:
+        # Supprimer les images en fonction de la plateforme
+        files_to_delete = UploadedFile.query.filter_by(platform=platform).all()
+        for file in files_to_delete:
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+            db.session.delete(file)
+        db.session.commit()
+        flash('Images successfully deleted for platform {}'.format(platform))
+    else:
+        flash('No platform specified for deletion')
+    return redirect(url_for('dashboard'))
+
+
+
 
 
 
@@ -328,4 +346,4 @@ def Threads():
     return render_template('Threads.html', files_with_urls=files_with_urls, files_home=files_home)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(host='0.0.0.0', port=5000)

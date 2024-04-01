@@ -20,7 +20,7 @@
   <!-- Publicité -->
   <section class="ads">
     <div class="ads-div" style="background-color: #f5f5f5; border-radius: 10px; padding: 10px;">
-      <a href="{{ files_with_urls[-1].url }}"><img src="{{ url_for('display_image', filename=files_with_urls[-1].filename) }}" alt="Uploaded Image" style="width:100%; height: auto;"></a>
+      <a href="{{ files_with_urls[-1].url }}"  target="_blank"><img src="{{ url_for('display_image', filename=files_with_urls[-1].filename) }}" alt="Uploaded Image" style="width:100%; height: auto;"></a>
     </div>
   </section>
 {% endif %}
@@ -28,7 +28,7 @@
 {% if files_home %}
   <section class="ads">
     <div class="ads-div" style="background-color: #f5f5f5; border-radius: 10px; padding: 10px;">
-      <a href="{{ files_home[-1].url }}"><img src="{{ url_for('display_image', filename=files_home[-1].filename) }}" alt="Uploaded Image" style="width:100%; height: auto;"></a>
+      <a href="{{ files_home[-1].url }}"  target="_blank"><img src="{{ url_for('display_image', filename=files_home[-1].filename) }}" alt="Uploaded Image" style="width:100%; height: auto;"></a>
     </div>
   </section>
 {% endif %}

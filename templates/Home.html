@@ -8,19 +8,19 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/Home.css') }}">
 <div class="title"><h1 dir="rtl">حمل مقاطع الفيديو بدون علامه مائية</h1></div>
 <div class="platforme">
- 
-  <!-- <a class="plat" href="{{ url_for('Spotify') }}"><i class="fab fa-spotify"></i> سبوتيفي</a> -->
+
+  <a class="plat" href="{{ url_for('Spotify') }}"><i class="fab fa-spotify"></i> سبوتيفي</a>
   <a class="plat" href="{{ url_for('Instagram') }}"><i class="fab fa-instagram"></i> إنستاجرام</a>
   <a class="plat" href="{{ url_for('Facebook') }}"><i class="fab fa-facebook"></i> فيس بوك</a>
   <a class="plat" href="{{ url_for('Youtube') }}"><i class="fab fa-youtube"></i> يوتيوب</a>
   <a class="plat" href="{{ url_for('Snapchat') }}"><i class="fab fa-snapchat"></i> سناب شات</a>
-  <!-- <a class="plat" href="{{ url_for('Reddit') }}"><i class="fab fa-reddit"></i> ريديت</a> -->
+  <a class="plat" href="{{ url_for('Reddit') }}"><i class="fab fa-reddit"></i> ريديت</a>
   <a class="plat" href="{{ url_for('Pinterest') }}"><i class="fab fa-pinterest"></i> بينتيست</a>
   <a class="plat" href="{{ url_for('SoundCloud') }}"><i class="fab fa-soundcloud"></i> ساوند كلاود</a>
   <a class="plat" href="{{ url_for('Twitter') }}"><i class="fab fa-twitter"></i> تويتر</a>
   <a class="plat" href="{{ url_for('Tiktok') }}"><i class="fab fa-tiktok"></i> تيك توك</a>
   <a class="plat" href="{{ url_for('LinkedIn') }}"><i class="fab fa-linkedin"></i> لينكد إن</a>
-  <!-- <a class="plat" href="{{ url_for('Threads') }}"><i class="fas fa-threads"></i> تريدس</a> -->
+  <a class="plat" href="{{ url_for('Threads') }}"><i class="fas fa-threads"></i> تريدس</a>
 
 </div>
 
@@ -32,9 +32,11 @@
 </div>
 <!-- Publicité -->
 <section class="ads">
+  {% if files_with_urls[-1] %}
   <div class="ads-div" style="background-color: #f5f5f5; border-radius: 10px; padding: 10px;">
-    <a href="{{ files_with_urls[-1].url }}"><img src="{{ url_for('display_image', filename=files_with_urls[-1].filename) }}" alt="Uploaded Image" style="width:100%; height: auto;"></a>
+    <a href="{{ files_with_urls[-1].url }}"  target="_blank"><img src="{{ url_for('display_image', filename=files_with_urls[-1].filename) }}" alt="Uploaded Image" style="width:100%; height: auto;"></a>
   </div>
+  {% endif %}
 </section>
 {% endblock %}
 

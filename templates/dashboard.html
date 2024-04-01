@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة المعلومات</title>
+    <title>لوحة التحكم</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">لوحة المعلومات</h1>
+        <h1 class="mt-5">لوحة التحكم</h1>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul class="alert alert-success mt-3">
@@ -51,24 +51,39 @@
             <button type="submit" class="btn btn-primary">تحميل</button>
             <a href="{{ url_for('logout') }}" class="btn btn-danger">تسجيل الخروج</a>
         </form>
+        <pre>
 
-        <h2 class="mt-5">الصور المحملة</h2>
-        {% if files_with_urls %}
-            <ul class="list-group mt-3">
-                {% for file in files_with_urls %}
-                    <li class="list-group-item">
-                        <img src="{{ url_for('display_image', filename=file.filename) }}" alt="{{ file.filename }}" class="mr-3">
-                        {% if file.url %}
-                            <a href="{{ file.url }}" target="_blank" class="badge badge-primary">رابط</a>
-                        {% else %}
-                            لا يوجد رابط
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="mt-3">لم يتم تحميل أي صور بعد.</p>
-        {% endif %}
+        </pre>
+        <h2>حدف الاعلانات</h2>
+
+        <!-- À l'intérieur de la boucle qui affiche les images téléchargées -->
+        <form action="{{ url_for('delete_image') }}" method="post">
+            <label for="platform">المنصة</label>
+            <select name="platform" class="form-control">
+                <option value="Home">الصفحة الرئيسية</option>
+                <option value="Instagram">إنستغرام</option>
+                <option value="Facebook">فيس بوك</option>
+                <option value="Twitter">تويتر</option>
+                <option value="TikTok">تيك توك</option>
+                <option value="Reddit">رديت</option>
+                <option value="SoundCloud">ساوند كلاود</option>
+                <option value="Pinterest">بينتيريست</option>
+                <option value="LinkedIn">لينكدإن</option>
+                <option value="Snapchat">سناب شات</option>
+                <option value="Spotify">سبوتيفاي</option>
+                <option value="YouTube">يوتيوب</option>
+                <option value="Snapchat">سناب شات</option>
+                <!-- أضف خيارات أخرى لكل منصة -->
+            </select>
+            <pre>
+            </pre>
+            <input type="submit" value="حذف" class="btn btn-danger">
+        </form>
+        <pre>
+
+        </pre>
+
+        
     </div>
 </body>
 </html>
